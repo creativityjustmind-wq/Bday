@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Priyal ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;1,600&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        /* --- GLOBAL STYLES & LOVE THEME --- */
+        body, html {
+            margin: 0; padding: 0;
+            background: linear-gradient(135deg, #fff0f3 0%, #ffccd5 100%);
+            color: #4a4a4a;
+            font-family: 'Poppins', sans-serif;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        body.locked { overflow-y: hidden; }
+
+        h1, h2, h3 { font-family: 'Playfair Display', serif; font-weight: 600; color: #ff0054; margin-bottom: 15px; }
+        
+        /* Floating Background Elements */
+        .floater {
+            position: fixed; opacity: 0.25; z-index: 0; pointer-events: none;
+            animation: floatUp infinite linear;
+        }
+        @keyframes floatUp {
+            0% { transform: translateY(110vh) scale(0.8) rotate(0deg); opacity: 0; }
+            20% { opacity: 0.5; }
+            80% { opacity: 0.5; }
+            100% { transform: translateY(-20vh) scale(1.2) rotate(25deg); opacity: 0; }
+        }
+
+        /* --- SCREENS --- */
+        #intro-screen {
+            height: 100vh; width: 100vw; display: flex; flex-direction: column;
+            justify-content: center; align-items: center; text-align: center;
+            position: fixed; top: 0; left: 0; z-index: 999;
+            background: linear-gradient(135deg, #fff0f3 0%, #ffb3c6 100%);
+            transition: opacity 1.5s ease-in-out, transform 1.5s ease-in-out;
+            
+            /* ADDED SCROLLING FOR MOBILE SCREENS */
+            overflow-y: auto; 
+            padding: 30px 15px; box-sizing: border-box;
+        }
+
+        .profile-pic {
+            width: 260px; height: 260px; border-radius: 50%; object-fit: cover;
+            border: 8px solid white; box-shadow: 0 15px 40px rgba(255, 77, 109, 0.4);
+            margin-bottom: 30px;
+        }
+
+        /* --- UPDATED SECTION FOR MOBILE FIX --- */
+        #flow-container { 
+            display: none; 
+            padding-top: 80px; 
+            /* Added massive padding at the bottom so the last line isn't hidden */
+            padding-bottom: 300px; 
+        } 
+
+        .section {
+            display: flex; flex-direction: column;
+            justify-content: center; align-items: center; text-align: center;
+            padding: 100px 20px; 
+            /* Use min-height: 80vh instead of 100vh to prevent cutting off */
+            min-height: 80vh;
+            position: relative; z-index: 10;
+        }
+
+        /* Specifically for the very last question section */
+        #flow-container .section:last-child {
+            padding-bottom: 400px; /* Extra space for the No/Yes buttons */
+        }
+
+        .content-box {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px 45px; 
+            border-radius: 25px; 
+            width: 85%; max-width: 500px; 
+            box-shadow: 0 15px 40px rgba(255, 77, 109, 0.2);
+            border-left: 8px solid #ff4d6d;
+            margin-bottom: 40px; 
+        }
+
+        .glow-box {
+            background: #fff0f3;
+            border: 2px solid #ffb3c6;
+            border-left: 10px solid #ff0054;
+            animation: pulseGlow 3s infinite alternate;
+        }
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 10px 30px rgba(255, 0, 84, 0.2); }
+            100% { box-shadow: 0 15px 50px rgba(255, 0, 84, 0.5); transform: scale(1.02); }
+        }
+
+        p { font-size: 26px; line-height: 1.8; margin-bottom: 30px; margin-top: 0; }
+        .highlight { color: #ff4d6d; font-weight: bold; }
+
+        .reveal-text {
+            opacity: 0;
+            transform: translateY(50px) scale(0.95);
+            transition: all 1.5s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+        .reveal-text.visible {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        /* --- BUTTONS --- */
+        button {
+            padding: 20px 50px; font-size: 26px; border: none; border-radius: 50px;
+            cursor: pointer; font-weight: bold; transition: all 0.3s ease;
+            font-family: 'Poppins', sans-serif; margin: 15px; z-index: 100;
+        }
+        .primary-btn { background: #ff4d6d; color: white; box-shadow: 0 8px 25px rgba(255, 77, 109, 0.5); }
+        .primary-btn:hover { background: #ff0054; transform: scale(1.08); }
+        .secondary-btn { background: white; color: #ff4d6d; border: 3px solid #ff4d6d; }
+
+        .runaway { position: fixed !important; transition: left 0.4s ease, top 0.4s ease; }
+
+        /* --- CHAT SIMULATION --- */
+        .chat-container { display: flex; flex-direction: column; align-items: center; gap: 15px; min-height: 200px; margin-bottom: 40px;}
+        .chat-bubble {
+            background: white; color: #ff4d6d; padding: 18px 35px; border-radius: 35px;
+            font-size: 24px; box-shadow: 0 8px 20px rgba(0,0,0,0.1); font-weight: 600;
+            opacity: 0; transition: 0.8s; border: 2px solid #ffccd5;
+        }
+
+        #music-btn {
+            position: fixed; top: 20px; right: 20px; background: rgba(255, 255, 255, 0.8);
+            border: 2px solid #ff4d6d; color: #ff4d6d; border-radius: 50%;
+            width: 60px; height: 60px; cursor: pointer; z-index: 1000; display: none; font-size: 28px;
+        }
+
+        #success-screen {
+            display: none; height: 100vh; width: 100vw; flex-direction: column;
+            justify-content: center; align-items: center; text-align: center;
+            position: fixed; top: 0; left: 0; z-index: 1000;
+            background: linear-gradient(135deg, #fff0f3 0%, #ffccd5 100%);
+        }
+    </style>
+</head>
+<body class="locked">
+
+    <audio id="bg-music" loop>
+        <source src="music.mp3" type="audio/mpeg">
+    </audio>
+    <button id="music-btn" onclick="toggleMusic()">🎵</button>
+
+    <div class="floater" style="left: 10%; font-size: 45px; animation-duration: 14s;">🦋</div>
+    <div class="floater" style="left: 20%; font-size: 55px; animation-duration: 18s; animation-delay: 2s;">❤️</div>
+    <div class="floater" style="left: 40%; font-size: 40px; animation-duration: 12s; animation-delay: 5s;">💕</div>
+    <div class="floater" style="left: 60%; font-size: 50px; animation-duration: 16s; animation-delay: 1s;">🦋</div>
+    <div class="floater" style="left: 75%; font-size: 60px; animation-duration: 20s; animation-delay: 4s;">💖</div>
+    <div class="floater" style="left: 85%; font-size: 35px; animation-duration: 13s; animation-delay: 7s;">🦋</div>
+
+    <div id="intro-screen">
+        <img src="photo.jpg" alt="Priyal" class="profile-pic" style="width: 170px; height: 170px; margin-bottom: 20px; border-width: 5px;" onerror="this.style.display='none'">
+        <h1 style="font-size: 38px; margin-bottom: 10px;">Happy Birthday Priyal! 🎂</h1>
+        <p style="font-size: 20px; max-width: 90%; margin-bottom: 25px; line-height: 1.5;">
+            Happpiest Birthday dear Prinsu! ✨ <br><br>
+            Enjoy your special day as you wish. I hope today brings you as much joy as your smile brings to me everyday.
+        </p>
+        <p style="font-size: 18px; font-style: italic; color: #ff0054; margin-bottom: 20px;">I have a one small gift for you... Pleeeease  open this one's , 
+            tap to open  !!!</p>
+        <button class="primary-btn" onclick="startFlow()" style="margin-top: 5px; font-size: 22px; padding: 15px 40px;">Open My Gift 🎁</button>
+    </div>
+
+    <div id="flow-container">
+
+        <div class="section">
+            <div class="content-box">
+                <h2 class="reveal-text" style="font-size: 42px;">My Wishes for You...</h2>
+                <p class="reveal-text">On this day of joy and cheer, dear Prinsu, 🎉
+                A candle glows brighter for your lovely smile. 🌟</p>
+                <p class="reveal-text">Through every season, you're a guiding light, 🌼  
+                            With heart so gentle, yet spirit bright. 🌈  </p>
+                <p class="reveal-text">May laughter dance in your eyes so true, 😊  
+                                        As dreams unfurl and skies turn blue. 🌌  
+                                        Your journey's path is filled with grace, 🌺  
+                                        Each moment treasured, you lovingly embrace. 💖  </p>
+                <p class="reveal-text">Happy birthday to you, with heartfelt delight, 🎂  
+                                        May your world be magical, day and night. ✨  </p>
+            </div>
+            <p class="reveal-text" style="font-size: 20px; color: #888; margin-top: 50px;">(Scroll down slowly... 👇)</p>
+        </div>
+
+        <div class="section" id="chat-section">
+            <h2 class="reveal-text" style="font-size: 38px; color: #ff4d6d; margin-bottom: 50px;">There’s something I never said...</h2>
+            <div class="chat-container" id="chat-box"></div>
+        </div>
+
+        <div class="section">
+            <div class="content-box">
+                <h2 class="reveal-text" style="font-size: 45px;">hey Priyee... ❤️</h2>
+                <p class="reveal-text">Hey Priyal... Kevi che tu ?</p>
+                <p class="reveal-text">Khabar nathi aa vaat kevi rite saru karu, pan have badhu dil ma rakhi shakay tem nathi.</p>
+                <p class="reveal-text">Aapni aa safar 11th standard na school na divaso thi saru thai hati. Tyare mari pase tari sathe vaat karvani himmat j nati, and na koi contact karvani.</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="content-box" style="border-left-color: #ff0054;">
+                <p class="reveal-text">Mane aaje pan yaad che aapno 12th no <span class="highlight">'Sidharth' class</span>.</p>
+                <p class="reveal-text">Me tya tane ketli vaar bas joi j che, pan kyarey aagal aavi ne vaat karvani himmat j na thai.</p>
+                <p class="reveal-text">Tu kadach mane olakhati pan nai hoy shayad, and me kyarey approach na karyo. Etle aa badhi memories bas mari ekla ni side thi j hati.</p>
+                <p class="reveal-text">Mane lagyu k "I will move on easily", but e school ni yaado kyarey bhulati j nathi.</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="content-box">
+                <p class="reveal-text">Reject thava na dar thi me koi diwas try j na karyo. </p>
+                <p class="reveal-text">School na last day par... hu sach ma bau emotional hato. Mane andar thi darr hato ke kachach hu tane life ma pachi kyarey nahi joi shaku.</p>
+                <p class="reveal-text">Pan aaje tari birthday par mane thayu ke, 'Na' sambhalva karta, 'Kaya vagar rehva' no afsos bau moto che.</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="content-box glow-box">
+                <p class="reveal-text" style="font-size: 34px; font-weight: bold; color: #ff0054; line-height: 1.6; text-align: center;">
+                    "Me tane varsho thi moun (silence) ma love karyo chhe... <br><br>
+                    Mane bas em hatu ke tane khabar hoy ke hu tane aaje pan eklo j prem karu chu."
+                </p>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="content-box">
+                <p class="reveal-text">Hu tari pase koi commitment ke relationship nathi mangto. Bas mara dil no ek bhar halko karvo hato.</p>
+                <p class="reveal-text">16 varsh ni umar thi laine aaje college na second year sudhi, me tane hamesha mari <span class="highlight">'favorite person'</span> mani che.</p>
+            </div>
+        </div>
+
+        <div class="section" style="min-height: 80vh;">
+            <h2 class="reveal-text" style="font-size: 48px; color: #ff0054; margin-bottom: 60px;">Do you like my gift, Prinsu? 🥺❤️</h2>
+            
+            <div style="display: flex; gap: 30px; align-items: center; justify-content: center; width: 100%; flex-wrap: wrap;">
+                <button id="yes-btn" class="primary-btn reveal-text" onclick="showSuccess()">Saras Lagyu ✨</button>
+                <button id="no-btn" class="secondary-btn reveal-text" onclick="runAway()" onmouseover="runAway()">Khabar Nahi...</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="success-screen">
+        <h1 style="font-size: 60px;">You made me the happiest guy! 🎉❤️</h1>
+        <p style="font-size: 32px; max-width: 80%; line-height: 1.6; margin-top: 30px;">Thank you for liking my gift! Knowing my feelings reached your heart makes this the best birthday ever.</p>
+        <p style="font-size: 80px; margin-top: 50px;">🥰 🦋 ✨</p>
+    </div>
+
+    <script>
+        const music = document.getElementById('bg-music');
+        const musicBtn = document.getElementById('music-btn');
+        let chatTriggered = false;
+
+        function startFlow() {
+            music.volume = 0.6;
+            music.play().catch(e => console.log("Audio play blocked"));
+            musicBtn.style.display = 'block';
+
+            const intro = document.getElementById('intro-screen');
+            intro.style.transform = 'translateY(-100vh)';
+            intro.style.opacity = '0';
+
+            setTimeout(() => {
+                intro.style.display = 'none';
+                document.getElementById('flow-container').style.display = 'block';
+                document.body.classList.remove('locked'); 
+                window.scrollTo(0, 0);
+            }, 1200);
+        }
+
+        function toggleMusic() {
+            if (music.paused) { music.play(); musicBtn.innerText = '🎵'; } 
+            else { music.pause(); musicBtn.innerText = '🔇'; }
+        }
+
+        const observer = new IntersectionObserver((entries) => {
+            let delay = 0; 
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.classList.add('visible');
+                    }, delay);
+                    delay += 1200; 
+                    observer.unobserve(entry.target); 
+                }
+            });
+        }, { threshold: 0.15 });
+
+        document.querySelectorAll('.reveal-text').forEach(el => observer.observe(el));
+        
+        const chatObserver = new IntersectionObserver((entries) => {
+            if(entries[0].isIntersecting && !chatTriggered) {
+                chatTriggered = true;
+                runChatSimulation();
+            }
+        });
+        chatObserver.observe(document.getElementById('chat-section'));
+
+        async function runChatSimulation() {
+            const chatBox = document.getElementById('chat-box');
+            const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
+            const createBubble = (text) => {
+                const b = document.createElement('div');
+                b.className = 'chat-bubble';
+                b.innerText = text;
+                chatBox.appendChild(b);
+                setTimeout(() => b.style.opacity = '1', 100);
+                return b;
+            };
+
+            await sleep(1500);
+            let b1 = createBubble('Hi Priyal...');
+            await sleep(2500);
+            b1.style.opacity = '0'; setTimeout(() => b1.remove(), 800);
+
+            await sleep(1500);
+            let b2 = createBubble('I wanted to tell you something...');
+            await sleep(2500);
+            b2.style.opacity = '0'; setTimeout(() => b2.remove(), 800);
+
+            await sleep(2000);
+            createBubble('So I never said anything until today...');
+        }
+
+        const noMessages = [
+            "Are you sure? 🥺",
+            "Please think again...",
+            "Me bau dil thi banavyu chhe",
+            "Ek var dil thi vichari le",
+            "Don't break my heart 💔",
+            "Taro ans ha j chhe but tu keti nathi",
+            "Have toh haa padi de!",
+            "Just think about my efforts",
+            "Last time vichari le"
+        ];
+
+        let noCount = 0;
+        function runAway() {
+            const noBtn = document.getElementById('no-btn');
+            const yesBtn = document.getElementById('yes-btn');
+
+            noBtn.innerText = noMessages[noCount % noMessages.length];
+            noCount++;
+
+            const currentSize = parseFloat(window.getComputedStyle(yesBtn).fontSize);
+            yesBtn.style.fontSize = (currentSize + 8) + 'px';
+            const currentPadding = parseFloat(window.getComputedStyle(yesBtn).paddingTop);
+            yesBtn.style.padding = `${currentPadding + 3}px ${currentPadding * 2.8}px`;
+
+            noBtn.classList.add('runaway');
+            
+            const maxX = window.innerWidth - noBtn.offsetWidth - 30;
+            const maxY = window.innerHeight - noBtn.offsetHeight - 30;
+            
+            const randomX = Math.max(20, Math.floor(Math.random() * maxX));
+            const randomY = Math.max(20, Math.floor(Math.random() * maxY));
+
+            noBtn.style.left = randomX + 'px';
+            noBtn.style.top = randomY + 'px';
+        }
+
+        function showSuccess() {
+            document.getElementById('flow-container').style.display = 'none';
+            document.body.classList.add('locked'); 
+            
+            const success = document.getElementById('success-screen');
+            success.style.display = 'flex';
+            window.scrollTo(0, 0);
+        }
+    </script>
+</body>
+</html>
