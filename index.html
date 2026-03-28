@@ -2,14 +2,17 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Birthday Priyal ❤️</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Happy Birthday Prinsu ❤️</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;1,600&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <style>
         /* --- GLOBAL STYLES & LOVE THEME --- */
         body, html {
             margin: 0; padding: 0;
             background: linear-gradient(135deg, #fff0f3 0%, #ffccd5 100%);
+            background-attachment: fixed; /* Locks the background perfectly on mobile */
+            min-height: 100vh;
+            min-height: 100dvh; /* Dynamic Viewport Height for mobile browsers */
             color: #4a4a4a;
             font-family: 'Poppins', sans-serif;
             overflow-x: hidden;
@@ -32,45 +35,38 @@
             100% { transform: translateY(-20vh) scale(1.2) rotate(25deg); opacity: 0; }
         }
 
-        /* --- SCREENS --- */
+        /* --- IRONCLAD INTRO SCREEN --- */
         #intro-screen {
-            height: 100vh; width: 100vw; display: flex; flex-direction: column;
+            height: 100vh; height: 100dvh; /* Mobile taskbar fix */
+            width: 100vw; 
+            display: flex; flex-direction: column;
             justify-content: center; align-items: center; text-align: center;
-            position: fixed; top: 0; left: 0; z-index: 999;
+            position: fixed; top: 0; left: 0; z-index: 9999; 
             background: linear-gradient(135deg, #fff0f3 0%, #ffb3c6 100%);
-            transition: opacity 1.5s ease-in-out, transform 1.5s ease-in-out;
-            
-            /* ADDED SCROLLING FOR MOBILE SCREENS */
+            transition: opacity 1.2s ease-in-out, transform 1.2s ease-in-out;
             overflow-y: auto; 
             padding: 30px 15px; box-sizing: border-box;
         }
 
         .profile-pic {
-            width: 260px; height: 260px; border-radius: 50%; object-fit: cover;
+            width: 220px; height: 220px; border-radius: 50%; object-fit: cover;
             border: 8px solid white; box-shadow: 0 15px 40px rgba(255, 77, 109, 0.4);
-            margin-bottom: 30px;
+            margin-bottom: 25px;
         }
 
-        /* --- UPDATED SECTION FOR MOBILE FIX --- */
+        /* --- THE FLOW SECTIONS --- */
         #flow-container { 
             display: none; 
             padding-top: 80px; 
-            /* Added massive padding at the bottom so the last line isn't hidden */
-            padding-bottom: 300px; 
+            padding-bottom: 500px; /* Huge padding so the last section never gets stuck under the nav bar */
         } 
 
         .section {
             display: flex; flex-direction: column;
             justify-content: center; align-items: center; text-align: center;
             padding: 100px 20px; 
-            /* Use min-height: 80vh instead of 100vh to prevent cutting off */
             min-height: 80vh;
             position: relative; z-index: 10;
-        }
-
-        /* Specifically for the very last question section */
-        #flow-container .section:last-child {
-            padding-bottom: 400px; /* Extra space for the No/Yes buttons */
         }
 
         .content-box {
@@ -94,7 +90,7 @@
             100% { box-shadow: 0 15px 50px rgba(255, 0, 84, 0.5); transform: scale(1.02); }
         }
 
-        p { font-size: 26px; line-height: 1.8; margin-bottom: 30px; margin-top: 0; }
+        p { font-size: 24px; line-height: 1.8; margin-bottom: 30px; margin-top: 0; }
         .highlight { color: #ff4d6d; font-weight: bold; }
 
         .reveal-text {
@@ -109,7 +105,7 @@
 
         /* --- BUTTONS --- */
         button {
-            padding: 20px 50px; font-size: 26px; border: none; border-radius: 50px;
+            padding: 20px 45px; font-size: 24px; border: none; border-radius: 50px;
             cursor: pointer; font-weight: bold; transition: all 0.3s ease;
             font-family: 'Poppins', sans-serif; margin: 15px; z-index: 100;
         }
@@ -123,7 +119,7 @@
         .chat-container { display: flex; flex-direction: column; align-items: center; gap: 15px; min-height: 200px; margin-bottom: 40px;}
         .chat-bubble {
             background: white; color: #ff4d6d; padding: 18px 35px; border-radius: 35px;
-            font-size: 24px; box-shadow: 0 8px 20px rgba(0,0,0,0.1); font-weight: 600;
+            font-size: 22px; box-shadow: 0 8px 20px rgba(0,0,0,0.1); font-weight: 600;
             opacity: 0; transition: 0.8s; border: 2px solid #ffccd5;
         }
 
@@ -134,9 +130,9 @@
         }
 
         #success-screen {
-            display: none; height: 100vh; width: 100vw; flex-direction: column;
+            display: none; height: 100vh; height: 100dvh; width: 100vw; flex-direction: column;
             justify-content: center; align-items: center; text-align: center;
-            position: fixed; top: 0; left: 0; z-index: 1000;
+            position: fixed; top: 0; left: 0; z-index: 10000;
             background: linear-gradient(135deg, #fff0f3 0%, #ffccd5 100%);
         }
     </style>
@@ -156,14 +152,15 @@
     <div class="floater" style="left: 85%; font-size: 35px; animation-duration: 13s; animation-delay: 7s;">🦋</div>
 
     <div id="intro-screen">
-        <img src="photo.jpg" alt="Priyal" class="profile-pic" style="width: 170px; height: 170px; margin-bottom: 20px; border-width: 5px;" onerror="this.style.display='none'">
+        <img src="photo.jpg" alt="Priyal" class="profile-pic" onerror="this.style.display='none'">
         <h1 style="font-size: 38px; margin-bottom: 10px;">Happy Birthday Priyal! 🎂</h1>
         <p style="font-size: 20px; max-width: 90%; margin-bottom: 25px; line-height: 1.5;">
             Happpiest Birthday dear Prinsu! ✨ <br><br>
             Enjoy your special day as you wish. I hope today brings you as much joy as your smile brings to me everyday.
         </p>
-        <p style="font-size: 18px; font-style: italic; color: #ff0054; margin-bottom: 20px;">I have a one small gift for you... Pleeeease  open this one's , 
-            tap to open  !!!</p>
+        <p style="font-size: 18px; font-style: italic; color: #ff0054; margin-bottom: 20px;">
+            I have one small gift for you... Please open this once, tap to open !!!
+        </p>
         <button class="primary-btn" onclick="startFlow()" style="margin-top: 5px; font-size: 22px; padding: 15px 40px;">Open My Gift 🎁</button>
     </div>
 
@@ -172,16 +169,11 @@
         <div class="section">
             <div class="content-box">
                 <h2 class="reveal-text" style="font-size: 42px;">My Wishes for You...</h2>
-                <p class="reveal-text">On this day of joy and cheer, dear Prinsu, 🎉
-                A candle glows brighter for your lovely smile. 🌟</p>
-                <p class="reveal-text">Through every season, you're a guiding light, 🌼  
-                            With heart so gentle, yet spirit bright. 🌈  </p>
-                <p class="reveal-text">May laughter dance in your eyes so true, 😊  
-                                        As dreams unfurl and skies turn blue. 🌌  
-                                        Your journey's path is filled with grace, 🌺  
-                                        Each moment treasured, you lovingly embrace. 💖  </p>
-                <p class="reveal-text">Happy birthday to you, with heartfelt delight, 🎂  
-                                        May your world be magical, day and night. ✨  </p>
+                <p class="reveal-text">On this day of joy and cheer, dear Priyal, 🎉<br>A candle glows brighter for your lovely smile. 🌟</p>
+                <p class="reveal-text">Through every season, you're a guiding light, 🌼<br>With heart so gentle, yet spirit bright. 🌈</p>
+                <p class="reveal-text">May laughter dance in your eyes so true, 😊<br>As dreams unfurl and skies turn blue. 🌌</p>
+                <p class="reveal-text">Your journey's path is filled with grace, 🌺<br>Each moment treasured, you lovingly embrace. 💖</p>
+                <p class="reveal-text">Happy birthday to you, with heartfelt delight, 🎂<br>May your world be magical, day and night. ✨</p>
             </div>
             <p class="reveal-text" style="font-size: 20px; color: #888; margin-top: 50px;">(Scroll down slowly... 👇)</p>
         </div>
@@ -194,7 +186,7 @@
         <div class="section">
             <div class="content-box">
                 <h2 class="reveal-text" style="font-size: 45px;">hey Priyee... ❤️</h2>
-                <p class="reveal-text">Hey Priyal... Kevi che tu ?</p>
+                <p class="reveal-text">Hey Priyal... Kevi che?</p>
                 <p class="reveal-text">Khabar nathi aa vaat kevi rite saru karu, pan have badhu dil ma rakhi shakay tem nathi.</p>
                 <p class="reveal-text">Aapni aa safar 11th standard na school na divaso thi saru thai hati. Tyare mari pase tari sathe vaat karvani himmat j nati, and na koi contact karvani.</p>
             </div>
@@ -211,7 +203,7 @@
 
         <div class="section">
             <div class="content-box">
-                <p class="reveal-text">Reject thava na dar thi me koi diwas try j na karyo. </p>
+                <p class="reveal-text">Reject thava na dar thi me koi diwas try j na karyo.</p>
                 <p class="reveal-text">School na last day par... hu sach ma bau emotional hato. Mane andar thi darr hato ke kachach hu tane life ma pachi kyarey nahi joi shaku.</p>
                 <p class="reveal-text">Pan aaje tari birthday par mane thayu ke, 'Na' sambhalva karta, 'Kaya vagar rehva' no afsos bau moto che.</p>
             </div>
@@ -219,7 +211,7 @@
 
         <div class="section">
             <div class="content-box glow-box">
-                <p class="reveal-text" style="font-size: 34px; font-weight: bold; color: #ff0054; line-height: 1.6; text-align: center;">
+                <p class="reveal-text" style="font-size: 30px; font-weight: bold; color: #ff0054; line-height: 1.6; text-align: center;">
                     "Me tane varsho thi moun (silence) ma love karyo chhe... <br><br>
                     Mane bas em hatu ke tane khabar hoy ke hu tane aaje pan eklo j prem karu chu."
                 </p>
