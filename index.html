@@ -23,23 +23,32 @@
             position: fixed; top: 0; left: 0; width: 100vw; height: 100%;
             background-color: #050505; /* Pitch Black */
             z-index: 9999; display: flex; flex-direction: column; 
-            justify-content: center; align-items: center; text-align: center;
+            /* Changed to flex-start and added top padding to prevent overlap with the banner */
+            justify-content: flex-start; align-items: center; text-align: center;
             transition: background-color 2s ease-in-out, transform 1.2s ease-in-out;
-            overflow-y: auto; overflow-x: hidden; padding: 20px; box-sizing: border-box;
+            overflow-y: auto; overflow-x: hidden; 
+            padding: 200px 20px 50px 20px; box-sizing: border-box;
             -webkit-overflow-scrolling: touch;
         }
         #dark-room.lights-on {
             background: linear-gradient(135deg, #fff0f3 0%, #ffb3c6 100%);
         }
 
+        /* --- NEW: Absolutely Centered Initial Buttons --- */
+        #intro-btn-container {
+            position: absolute; top: 50%; left: 50%; 
+            transform: translate(-50%, -50%);
+            z-index: 10020; width: 100%; text-align: center;
+        }
+
         /* 1. Advanced Bunting / Toran */
         #bunting {
-            position: absolute; top: -150px; /* Starts hidden above screen */
-            width: 100%; max-width: 800px;
+            position: absolute; top: -150px; 
+            width: 100%; max-width: 800px; left: 50%; transform: translateX(-50%);
             display: flex; flex-direction: column; align-items: center;
             transition: top 1.5s cubic-bezier(0.25, 1, 0.5, 1); z-index: 10001;
         }
-        #bunting.drop { top: 20px; } /* Drops down dynamically */
+        #bunting.drop { top: 20px; } 
         
         .bunting-row { display: flex; justify-content: center; flex-wrap: wrap; gap: 8px; margin-bottom: 15px; }
         
@@ -48,15 +57,13 @@
             background: linear-gradient(135deg, #ff4d6d, #ff0054);
             color: white; font-weight: bold; font-size: 26px;
             display: flex; justify-content: center; align-items: flex-start; padding-top: 8px; box-sizing: border-box;
-            /* Swallowtail flag shape */
             clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 50% 80%, 0% 100%); 
             box-shadow: 0 10px 20px rgba(0,0,0,0.3); 
             animation: swing 2.5s infinite ease-in-out alternate; transform-origin: top;
-            border-top: 3px solid #ffccd5; /* Looks like the string holding them */
+            border-top: 3px solid #ffccd5; 
         }
         .pennant:nth-child(even) { background: linear-gradient(135deg, #ff0054, #c9184a); animation-delay: 0.4s; }
         
-        /* Special Golden Color for PRIYAL */
         .highlight-pennant { 
             background: linear-gradient(135deg, #ffb703, #fb8500) !important; 
             font-size: 32px; width: 48px; height: 65px; 
@@ -68,8 +75,7 @@
         #intro-wish-text {
             opacity: 0; transform: translateY(20px); 
             transition: all 1.5s ease; z-index: 10002; 
-            margin-top: 150px; /* Pushes it below the double banner */
-            margin-bottom: 20px;
+            margin-bottom: 30px;
         }
         #intro-wish-text p {
             font-size: 20px; font-weight: 600; color: #ff0054; max-width: 90%; 
@@ -92,7 +98,6 @@
         }
         @keyframes flicker { 0% { transform: translateX(-50%) scale(1); opacity: 0.8; } 100% { transform: translateX(-50%) scale(1.1); opacity: 1; } }
 
-        /* Magic Glow behind cake when lit */
         .cake-glow {
             position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
             width: 150px; height: 150px; background: radial-gradient(circle, rgba(255,215,0,0.4) 0%, rgba(255,215,0,0) 70%);
@@ -172,7 +177,7 @@
         .chat-container { display: flex; flex-direction: column; align-items: center; gap: 15px; min-height: 180px; margin-bottom: 30px;}
         .chat-bubble {
             background: white; color: #ff4d6d; padding: 15px 30px; border-radius: 35px; font-size: 20px; 
-            box-shadow: 0 8px 20px rgba(0,0,0,0.1); font-weight: 600; opacity: 0; transition: 0.8s; border: 2px solid #ffccd5;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1); font-weight: 600; opacity: 0; transition: 0.8s; border: 2px solid #ffccd5; text-align: center;
         }
 
         /* --- SUCCESS SCREEN --- */
@@ -199,12 +204,12 @@
 
         /* --- MOBILE PERFECT SIZING FIX --- */
         @media (max-width: 600px) {
+            #dark-room { padding-top: 170px; } /* Ensures safe space below banner */
             .pennant { width: 28px; height: 40px; font-size: 18px; padding-top: 5px; }
             .highlight-pennant { width: 32px; height: 46px; font-size: 22px; }
             .space { width: 8px; }
             .cake-emoji { font-size: 100px; }
             .flame { font-size: 35px; top: -10px; }
-            #intro-wish-text { margin-top: 130px; margin-bottom: 10px; }
             #intro-wish-text p { font-size: 16px; padding: 12px 15px; }
             button.primary-btn, button.secondary-btn { padding: 12px 25px; font-size: 18px; margin: 10px; }
             p { font-size: 18px; }
@@ -242,8 +247,10 @@
             </div>
         </div>
 
-        <button id="light-btn" class="secondary-btn" onclick="turnOnLights()">Turn On Lights 💡</button>
-        <button id="start-music-btn" class="primary-btn" style="display:none;" onclick="startIntroSequence()">Start Music 🎵</button>
+        <div id="intro-btn-container">
+            <button id="light-btn" class="secondary-btn" onclick="turnOnLights()">Turn On Lights 💡</button>
+            <button id="start-music-btn" class="primary-btn" style="display:none; margin: 0 auto;" onclick="startIntroSequence()">Start Music 🎵</button>
+        </div>
 
         <div id="intro-wish-text">
             <p>
@@ -363,12 +370,14 @@
 
         // --- NEW INTRO SEQUENCE LOGIC ---
         function turnOnLights() {
-            document.getElementById('light-btn').style.display = 'none';
+            // Hide the Light button and remove it from flow
+            const lightBtn = document.getElementById('light-btn');
+            lightBtn.style.display = 'none';
             document.getElementById('dark-room').classList.add('lights-on');
             
             setTimeout(() => {
                 const mBtn = document.getElementById('start-music-btn');
-                mBtn.style.display = 'block';
+                mBtn.style.display = 'inline-block';
                 mBtn.style.opacity = '0';
                 mBtn.style.transition = 'opacity 1s';
                 setTimeout(() => mBtn.style.opacity = '1', 100);
@@ -376,7 +385,8 @@
         }
 
         async function startIntroSequence() {
-            document.getElementById('start-music-btn').style.display = 'none';
+            // Hide intro buttons entirely so they don't block anything
+            document.getElementById('intro-btn-container').style.display = 'none';
             
             // 1. Play Music
             music.volume = 0.6;
@@ -446,12 +456,10 @@
 
         function createSparkles(count) {
             const container = document.getElementById('dark-room');
-            const cakeBox = document.getElementById('cake-box');
             for(let i=0; i<count; i++) {
                 let s = document.createElement('div');
                 s.className = 'sparkle';
                 s.innerText = '✨';
-                // Spread sparkles around the cake area
                 s.style.left = (50 + (Math.random() * 40 - 20)) + 'vw';
                 s.style.top = (50 + (Math.random() * 40 - 20)) + 'vh';
                 s.style.animationDelay = (Math.random() * 2) + 's';
